@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "498496902980",
+    "firebase_url": "https://mepague-91faa.firebaseio.com",
+    "project_id": "mepague-91faa",
+    "storage_bucket": "mepague-91faa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498496902980:android:0e1fd2bf105ddc00",
+        "android_client_info": {
+          "package_name": "com.topstermidster.mepague"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498496902980-r130djhfh28lp2c3rv7vaq39ik3sep6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmMEzBxj57HS3ZzLN0jqyqlqXW2G7KXTw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
