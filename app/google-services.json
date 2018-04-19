@@ -15,6 +15,50 @@
       },
       "oauth_client": [
         {
+          "client_id": "498496902980-kuj45u0an2r9c1ahtfd6bcr7savc9l2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.topstermidster.mepague",
+            "certificate_hash": "4f677bce8f8350a25ae310afe9749aaa00ffb1b5"
+          }
+        },
+        {
+          "client_id": "498496902980-r130djhfh28lp2c3rv7vaq39ik3sep6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmMEzBxj57HS3ZzLN0jqyqlqXW2G7KXTw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498496902980-r130djhfh28lp2c3rv7vaq39ik3sep6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498496902980:android:8f5e30ab198a05a4",
+        "android_client_info": {
+          "package_name": "dsadsadas.csad"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "498496902980-r130djhfh28lp2c3rv7vaq39ik3sep6g.apps.googleusercontent.com",
           "client_type": 3
         }

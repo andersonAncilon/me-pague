@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">mePague</string>
+    <string name="app_name">Me pague</string>
+    <string name="auth_failed">Não deu certo</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.topstermidster.mepague;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class telaCadastro extends AppCompatActivity {
 
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     firebase fire;
     private EditText login;
     private EditText email;
@@ -27,11 +37,14 @@ public class telaCadastro extends AppCompatActivity {
     }
 
     public void createAcc (View view) {
-        if(password.getText().equals(confirmPassword.getText()))
+        if(password.getText().toString().equals(confirmPassword.getText().toString()))
             fire.createUser(login.getText().toString(), email.getText().toString(), password.getText().toString() );
 
         else
-            Toast.makeText( null, "As senhas não conferem", Toast.LENGTH_LONG).show();
+            Toast.makeText( getApplicationContext(), "As senhas não conferem", Toast.LENGTH_LONG).show();
     }
+
+
+
 
 }
