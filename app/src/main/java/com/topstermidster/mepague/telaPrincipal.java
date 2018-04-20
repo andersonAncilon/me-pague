@@ -31,24 +31,32 @@ public class telaPrincipal extends AppCompatActivity {
         rcView.setLayoutManager(rcLayoutMan);
         rcView.setItemAnimator(new DefaultItemAnimator());
         rcView.setAdapter(rcAdapter);
+        rcView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
         prepareDevedorData();
     }
 
     public void prepareDevedorData() {
-        devedor dev = new devedor("teste", "teste", "teste");
+        devedor dev = new devedor("teste", "teste");
         devedorList.add(dev);
 
-        dev = new devedor("teste", "teste", "teste");
+        dev = new devedor("teste", "teste");
         devedorList.add(dev);
 
-        dev = new devedor("teste1", "teste", "teste");
+        dev = new devedor("teste1", "teste");
         devedorList.add(dev);
 
-        dev = new devedor("teste2", "teste", "teste");
+        dev = new devedor("teste2", "teste");
         devedorList.add(dev);
 
-        dev = new devedor("teste3", "teste", "teste");
+        dev = new devedor("teste3", "teste");
+        devedorList.add(dev);
+
+        dev = new devedor("teste3", "teste");
+        devedorList.add(dev);
+        dev = new devedor("teste3", "teste");
+        devedorList.add(dev);
+        dev = new devedor("teste3", "teste");
         devedorList.add(dev);
 
         rcAdapter.notifyDataSetChanged();

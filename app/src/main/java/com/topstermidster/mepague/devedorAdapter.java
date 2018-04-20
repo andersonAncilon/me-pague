@@ -1,5 +1,6 @@
 package com.topstermidster.mepague;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
             super(view);
             name = (TextView) view.findViewById(R.id.nomeDevedor);
             value = (TextView) view.findViewById(R.id.valor);
-            date = (TextView) view.findViewById(R.id.data);
+            //date = (TextView) view.findViewById(R.id.data);
         }
     }
 
@@ -41,7 +42,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
         devedor devedor = devedorsList.get(position);
         holder.name.setText(devedor.getName());
         holder.value.setText(devedor.getValue());
-        holder.date.setText(devedor.getDate());
+        //holder.date.setText(devedor.getDate());
     }
 
     @Override

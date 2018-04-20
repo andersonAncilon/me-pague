@@ -19,7 +19,6 @@ public class telaCadastro extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    firebase fire;
     private EditText login;
     private EditText email;
     private EditText password;
@@ -29,16 +28,36 @@ public class telaCadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_cadastro);
-        fire = new firebase();
         login = (EditText) findViewById(R.id.edtTextLoginCreate);
-        email = (EditText) findViewById(R.id.edtTextEmailCreate);
         password = (EditText) findViewById(R.id.edtTextPasswordCreate);
         confirmPassword = (EditText) findViewById(R.id.edtTextPasswordConfirm);
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void createAcc (View view) {
+
         if(password.getText().toString().equals(confirmPassword.getText().toString()))
-            fire.createUser(login.getText().toString(), email.getText().toString(), password.getText().toString() );
+            mAuth.createUserWithEmailAndPassword(login.getText().toString(), password.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("Usuario criado", "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(telaCadastro.this, "Cadastro realizado com sucesso.",
+                                        Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Nao foi criado", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(telaCadastro.this, "Cadastro não realizado, tente novamente.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            // ...
+                        }
+                    });
 
         else
             Toast.makeText( getApplicationContext(), "As senhas não conferem", Toast.LENGTH_LONG).show();
