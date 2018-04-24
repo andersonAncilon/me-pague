@@ -1,23 +1,42 @@
 package com.topstermidster.mepague;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class telaPrincipal extends AppCompatActivity {
+public class telaPrincipal extends AppCompatActivity implements MyMediatorInterface {
 
     private List<devedor> devedorList = new ArrayList<>();
-
+    private FirebaseAuth mAuth;
     private RecyclerView rcView;
     private RecyclerView.Adapter rcAdapter;
     private RecyclerView.LayoutManager rcLayoutMan;
+    FirebaseFirestore db;
+    FirebaseUser currentUser;
+    private Button btnAdd;
+    private EditText btnName;
+
+    devedor dev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,38 +45,46 @@ public class telaPrincipal extends AppCompatActivity {
 
         rcView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        rcAdapter = new devedorAdapter(devedorList);
+        rcAdapter = new devedorAdapter(devedorList, this);
         rcLayoutMan = new LinearLayoutManager(getApplicationContext());
         rcView.setLayoutManager(rcLayoutMan);
         rcView.setItemAnimator(new DefaultItemAnimator());
         rcView.setAdapter(rcAdapter);
         rcView.addItemDecoration(new SimpleDividerItemDecoration(this));
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
-        prepareDevedorData();
+    }
+
+    public void insertData(View view) {
+
+
+        db.collection(currentUser.getEmail()).document(dev.getName())
+                .set(dev)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("FIREBASE", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("FIREBASE", "Error writing document", e);
+                    }
+                });
     }
 
     public void prepareDevedorData() {
-        devedor dev = new devedor("teste", "teste");
-        devedorList.add(dev);
 
-        dev = new devedor("teste", "teste");
-        devedorList.add(dev);
+        Map<String, Object> deve = new HashMap<>();
 
-        dev = new devedor("teste1", "teste");
-        devedorList.add(dev);
+        deve.put("name", "Joaozinho");
+        deve.put("value", 155.00);
+        deve.put("date", "25/04/2018");
 
-        dev = new devedor("teste2", "teste");
-        devedorList.add(dev);
-
-        dev = new devedor("teste3", "teste");
-        devedorList.add(dev);
-
-        dev = new devedor("teste3", "teste");
-        devedorList.add(dev);
-        dev = new devedor("teste3", "teste");
-        devedorList.add(dev);
-        dev = new devedor("teste3", "teste");
-        devedorList.add(dev);
+        dev = new devedor("joaozinho", "7", "12/12/1997");
 
         rcAdapter.notifyDataSetChanged();
     }
@@ -65,5 +92,23 @@ public class telaPrincipal extends AppCompatActivity {
     public void logoutUser (View view) {
         Intent intent = new Intent(getApplicationContext(), telaLogin.class);
         startActivity(intent);
+    }
+
+    public void addDevedor (View view) {
+        Intent intent = new Intent(getApplicationContext(), telaAdicionarDevedor.class);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void userItemClick (int pos) {
+        Toast.makeText(telaPrincipal.this, "Quem te pagou : " + devedorList.get(pos).getName(), Toast.LENGTH_SHORT).show();
+        devedorList.remove(devedorList.get(pos));
+        rcAdapter.notifyDataSetChanged();
+    }
+
+    public void delete(View view) {
+        int pos = 0;
+        userItemClick(pos);
     }
 }

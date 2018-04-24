@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".telaPrincipal" />
-        <activity android:name=".telaCadastro"></activity>
+        <activity android:name=".telaCadastro" />
+        <activity android:name=".telaAdicionarDevedor"></activity>
     </application>
 
 </manifest>

@@ -6,10 +6,10 @@ public class devedor {
     public devedor() {
     }
 
-    public devedor(String name, String value /*String date*/) {
+    public devedor(String name, String value, String date) {
         this.name = name;
         this.value = value;
-        //this.date = date;
+        this.date = date;
     }
 
     public String getName() {
@@ -20,13 +20,13 @@ public class devedor {
         this.name = name;
     }
 
-    /*public String getDate() {
+    public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    }*/
+    }
 
     public String getValue() {
         return value;

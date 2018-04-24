@@ -34,6 +34,7 @@ public class telaLogin extends AppCompatActivity {
     private EditText password;
     firebase fire;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
