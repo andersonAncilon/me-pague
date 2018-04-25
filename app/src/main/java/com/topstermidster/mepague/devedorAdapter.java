@@ -27,7 +27,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
             super(view);
             name = (TextView) view.findViewById(R.id.nomeDevedor);
             value = (TextView) view.findViewById(R.id.valor);
-            //date = (TextView) view.findViewById(R.id.data);
+            date = (TextView) view.findViewById(R.id.data);
             //ll = (LinearLayout) itemView.findViewById(R.id.ll_layout);
             btnDelete = (ImageButton) itemView.findViewById(R.id.btnExcluirDevedor);
             btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
         devedor devedor = devedorsList.get(position);
         holder.name.setText(devedor.getName());
         holder.value.setText(devedor.getValue());
-        //holder.date.setText(devedor.getDate());
+        holder.date.setText(devedor.getDate());
     }
 
     @Override

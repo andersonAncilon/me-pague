@@ -13,11 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +40,8 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     FirebaseFirestore db;
     FirebaseUser currentUser;
     private Button btnAdd;
-    private EditText btnName;
+    devedor deve = new devedor();
+
 
     devedor dev;
 
@@ -51,14 +58,15 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
         rcView.setItemAnimator(new DefaultItemAnimator());
         rcView.setAdapter(rcAdapter);
         rcView.addItemDecoration(new SimpleDividerItemDecoration(this));
+
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        prepareDevedorData();
 
     }
 
     public void insertData(View view) {
-
 
         db.collection(currentUser.getEmail()).document(dev.getName())
                 .set(dev)
@@ -76,20 +84,38 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
                 });
     }
 
+
     public void prepareDevedorData() {
+        db.collection(currentUser.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                deve = document.toObject(devedor.class);
+                                if(!devedorList.contains(deve.getName()))
+                                    devedorList.add(deve);
+                            }
+                            rcAdapter.notifyDataSetChanged();
+                        } else {
+                            Log.d("AQUI", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
-        Map<String, Object> deve = new HashMap<>();
+        //rcAdapter.notifyDataSetChanged();
 
-        deve.put("name", "Joaozinho");
-        deve.put("value", 155.00);
-        deve.put("date", "25/04/2018");
+    }
 
-        dev = new devedor("joaozinho", "7", "12/12/1997");
-
-        rcAdapter.notifyDataSetChanged();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        prepareDevedorData();
     }
 
     public void logoutUser (View view) {
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(getApplicationContext(), telaLogin.class);
         startActivity(intent);
     }
@@ -104,6 +130,18 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     public void userItemClick (int pos) {
         Toast.makeText(telaPrincipal.this, "Quem te pagou : " + devedorList.get(pos).getName(), Toast.LENGTH_SHORT).show();
         devedorList.remove(devedorList.get(pos));
+        db.collection(currentUser.getEmail()).document(devedorList.get(pos).getName())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
         rcAdapter.notifyDataSetChanged();
     }
 

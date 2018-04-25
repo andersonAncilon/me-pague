@@ -1,5 +1,6 @@
 package com.topstermidster.mepague;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class telaCadastro extends AppCompatActivity {
 
     public void createAcc (View view) {
 
-        if(password.getText().toString().equals(confirmPassword.getText().toString()))
+        if(password.getText().toString().equals(confirmPassword.getText().toString()) && password.getText().length() >= 6)
             mAuth.createUserWithEmailAndPassword(login.getText().toString(), password.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -51,11 +52,12 @@ public class telaCadastro extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("Nao foi criado", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(telaCadastro.this, "Cadastro não realizado, tente novamente.",
+                                Toast.makeText(telaCadastro.this, "Cadastro não realizado, tente novamente, a senha precisa ter mais de 6 digitos.",
                                         Toast.LENGTH_SHORT).show();
                             }
 
-                            // ...
+                            Intent intent = new Intent(getApplicationContext(), telaLogin.class);
+                            startActivity(intent);
                         }
                     });
 
