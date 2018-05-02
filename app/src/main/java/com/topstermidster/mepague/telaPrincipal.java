@@ -129,12 +129,13 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     @Override
     public void userItemClick (int pos) {
         Toast.makeText(telaPrincipal.this, "Quem te pagou : " + devedorList.get(pos).getName(), Toast.LENGTH_SHORT).show();
-        devedorList.remove(devedorList.get(pos));
+
         db.collection(currentUser.getEmail()).document(devedorList.get(pos).getName())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -142,7 +143,8 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
                     public void onFailure(@NonNull Exception e) {
                     }
                 });
-        rcAdapter.notifyDataSetChanged();
+            devedorList.remove(devedorList.get(pos));
+            rcAdapter.notifyDataSetChanged();
     }
 
     public void delete(View view) {
