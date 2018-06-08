@@ -5,18 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".telaAdicionarDevedor">
-
-
     <EditText
         android:id="@+id/edtName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Digite o nome do devedor"
+        android:layout_below="@+id/data"
+        android:textColor="@color/name"
+        android:textSize="16dp"
         android:inputType="textPersonName"
+        android:hint="Digite o nome do devedor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,27 +25,33 @@
 
     <EditText
         android:id="@+id/edtValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Digite o valor"
+        android:layout_below="@+id/data"
+        android:textColor="@color/name"
+        android:textSize="16dp"
         android:inputType="textPersonName"
+        android:hint="Digite o valor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtName" />
 
-    <EditText
+    <TextView
         android:id="@+id/edtDate"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Digite a data"
+        android:layout_below="@+id/data"
+        android:textColor="@color/name"
+        android:textSize="16dp"
+        android:hint=" Selecione a data"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,15 +59,14 @@
 
     <Button
         android:id="@+id/btnAdicionar"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:onClick="inserir"
         android:text="Adicionar"
+        android:onClick="inserir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,8 +74,9 @@
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline5"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="101dp" />
+
 </android.support.constraint.ConstraintLayout>

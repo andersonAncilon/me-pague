@@ -7,7 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import java.util.Calendar;
+import android.widget.DatePicker;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,16 +24,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class telaAdicionarDevedor extends AppCompatActivity {
+public class telaAdicionarDevedor extends AppCompatActivity implements View.OnClickListener {
 
     private EditText edtName;
     private EditText edtValue;
-    private EditText edtDate;
+    private TextView edtDate;
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseUser currentUser;
     devedor dev;
-
+    int yearV, month, day;
+    static final int DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +43,46 @@ public class telaAdicionarDevedor extends AppCompatActivity {
 
         edtName = (EditText) findViewById(R.id.edtName);
         edtValue = (EditText) findViewById(R.id.edtValue);
-        edtDate = (EditText) findViewById(R.id.edtDate);
+        edtDate = (TextView) findViewById(R.id.edtDate);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        edtDate.setOnClickListener(this);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Calendar calendario = Calendar.getInstance();
+
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        switch (id) {
+            case DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes,
+                        dia);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    String data = String.valueOf(dayOfMonth) + " /"
+                            + String.valueOf(monthOfYear+1) + " /" + String.valueOf(year);
+                    Toast.makeText(telaAdicionarDevedor.this,
+                            "DATA = " + data, Toast.LENGTH_SHORT)
+                            .show();
+                    edtDate.setText(data);
+                }
+            };
+
+    public void onClick(View v) {
+        if (v == edtDate)
+            showDialog(DIALOG_ID);
     }
 
     public void inserir (View view) {
