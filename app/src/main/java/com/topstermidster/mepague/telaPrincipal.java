@@ -63,7 +63,6 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         prepareDevedorData();
-
     }
 
     public void insertData(View view) {
@@ -103,9 +102,6 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
                         }
                     }
                 });
-
-        //rcAdapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -145,6 +141,16 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
                 });
             devedorList.remove(devedorList.get(pos));
             rcAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void userItemClickData (int posx) {
+        Toast.makeText(telaPrincipal.this, "Quem te pagou : " + devedorList.get(posx).getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void edit(View view) {
+        int pos = 0;
+        userItemClickData(pos);
     }
 
     public void delete(View view) {

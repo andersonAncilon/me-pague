@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".telaPrincipal" />
         <activity android:name=".telaCadastro" />
-        <activity android:name=".telaAdicionarDevedor"></activity>
+        <activity android:name=".telaAdicionarDevedor" />
+        <activity android:name=".telaDadosDevedor"></activity>
     </application>
 
 </manifest>

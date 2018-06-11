@@ -41,6 +41,7 @@
         android:layout_alignEnd="@+id/nomeDevedor"
         android:layout_alignTop="@+id/nomeDevedor"
         android:src="@drawable/ic_edit_devedor"
+        android:onClick="edit"
         />
 
     <ImageButton

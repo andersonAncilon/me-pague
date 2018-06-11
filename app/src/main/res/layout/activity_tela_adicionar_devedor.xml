@@ -34,7 +34,7 @@
         android:layout_below="@+id/data"
         android:textColor="@color/name"
         android:textSize="16dp"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:hint="Digite o valor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
         android:textColor="@color/name"
         android:textSize="16dp"
         android:hint=" Selecione a data"
-        android:inputType="textPersonName"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtValue" />

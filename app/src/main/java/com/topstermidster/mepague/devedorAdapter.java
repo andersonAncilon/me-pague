@@ -18,6 +18,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
     private List<devedor> devedorsList;
     public LinearLayout ll;
     public ImageButton btnDelete;
+    public ImageButton btnEdit;
     WeakReference<Context> mContextWeakReference;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -30,10 +31,17 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
             date = (TextView) view.findViewById(R.id.data);
             //ll = (LinearLayout) itemView.findViewById(R.id.ll_layout);
             btnDelete = (ImageButton) itemView.findViewById(R.id.btnExcluirDevedor);
+            btnEdit = (ImageButton) itemView.findViewById(R.id.edit);
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((telaPrincipal) context).userItemClick(getAdapterPosition());
+                }
+            });
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((telaPrincipal) context).userItemClickData(getAdapterPosition());
                 }
             });
         }
