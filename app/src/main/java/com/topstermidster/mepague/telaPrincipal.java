@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,7 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     private Button btnAdd;
     devedor deve = new devedor();
 
+    private ProgressBar progresso;
 
     devedor dev;
 
@@ -59,6 +61,9 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
         rcView.setAdapter(rcAdapter);
         rcView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
+        progresso = (ProgressBar) findViewById(R.id.progressoDados);
+        progresso.setVisibility(View.VISIBLE);
+
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -66,19 +71,20 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     }
 
     public void insertData(View view) {
-
         db.collection(currentUser.getEmail()).document(dev.getName())
                 .set(dev)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("FIREBASE", "DocumentSnapshot successfully written!");
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("FIREBASE", "Error writing document", e);
+
                     }
                 });
     }
@@ -96,9 +102,11 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
                                 if(!devedorList.contains(deve.getName()))
                                     devedorList.add(deve);
                             }
+                            progresso.setVisibility(View.GONE);
                             rcAdapter.notifyDataSetChanged();
                         } else {
                             Log.d("AQUI", "Error getting documents: ", task.getException());
+                            progresso.setVisibility(View.GONE);
                         }
                     }
                 });

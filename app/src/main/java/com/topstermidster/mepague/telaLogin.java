@@ -3,6 +3,7 @@ package com.topstermidster.mepague;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +35,8 @@ public class telaLogin extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText login;
     private EditText password;
+    private ProgressBar spinner;
+
     firebase fire;
     public SharedPreferences sharedPreferences = null;
     public SharedPreferences.Editor editor = null;
@@ -43,8 +47,13 @@ public class telaLogin extends AppCompatActivity {
         setContentView(R.layout.activity_tela_login);
         login = (EditText) findViewById(R.id.edtTextLogin);
         password = (EditText) findViewById(R.id.edtTextPass);
+        spinner = (ProgressBar) findViewById(R.id.progresso) ;
+        spinner.setVisibility(View.GONE);
+
         fire = new firebase();
         mAuth = FirebaseAuth.getInstance();
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String login=(mSharedPreference.getString("login", "Default_Value"));
@@ -61,6 +70,8 @@ public class telaLogin extends AppCompatActivity {
 
 
     public void doLogin (View view) {
+
+        spinner.setVisibility(View.VISIBLE);
         final Intent intent = new Intent(getApplicationContext(), telaPrincipal.class);
         mAuth.signInWithEmailAndPassword(login.getText().toString(), password.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -69,8 +80,10 @@ public class telaLogin extends AppCompatActivity {
                 if (!task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(),"Login ou senha incorretos",  Toast.LENGTH_LONG).show();
                     Log.w("AUTH", "Falha ao efetuar o Login:", task.getException());
+                    spinner.setVisibility(View.GONE);
                 }else{
                     Log.d("AUTH", "Login Efetuado com sucesso!!!");
+                    spinner.setVisibility(View.GONE);
                     startActivity(intent);
                 }
             }
