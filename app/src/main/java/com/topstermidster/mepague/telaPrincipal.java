@@ -1,6 +1,8 @@
 package com.topstermidster.mepague;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     FirebaseFirestore db;
     FirebaseUser currentUser;
     private Button btnAdd;
+
 
     Bundle bundle;
 
@@ -125,6 +128,10 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     public void logoutUser (View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(getApplicationContext(), telaLogin.class);
+        final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor editor = mSharedPreference.edit();
+        editor.clear();
+        editor.commit();
         startActivity(intent);
     }
 

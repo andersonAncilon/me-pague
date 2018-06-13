@@ -63,8 +63,25 @@ public class telaLogin extends AppCompatActivity {
         this.password.setText("");
 
         if(login != "Default_Value") {
+            final Intent intent = new Intent(getApplicationContext(), telaPrincipal.class);
             this.login.setText(login);
             this.password.setText(password);
+            mAuth.signInWithEmailAndPassword(login, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(),"Login ou senha incorretos",  Toast.LENGTH_LONG).show();
+                        Log.w("AUTH", "Falha ao efetuar o Login:", task.getException());
+                        spinner.setVisibility(View.GONE);
+                    }else{
+                        Log.d("AUTH", "Login Efetuado com sucesso!!!");
+                        spinner.setVisibility(View.GONE);
+                        startActivity(intent);
+                    }
+                }
+            });
+
         }
     }
 

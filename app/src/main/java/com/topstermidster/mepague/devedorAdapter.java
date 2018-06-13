@@ -21,6 +21,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
     public LinearLayout ll;
     public ImageButton btnDelete;
     public ImageButton btnEdit;
+
     WeakReference<Context> mContextWeakReference;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
