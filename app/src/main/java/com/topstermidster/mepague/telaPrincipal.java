@@ -41,6 +41,9 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     FirebaseFirestore db;
     FirebaseUser currentUser;
     private Button btnAdd;
+
+    Bundle bundle;
+
     devedor deve = new devedor();
 
     private ProgressBar progresso;
@@ -51,7 +54,7 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_principal);
-
+        setTitle(R.string.main);
         rcView = (RecyclerView) findViewById(R.id.recycler_view);
 
         rcAdapter = new devedorAdapter(devedorList, this);
@@ -60,6 +63,7 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
         rcView.setItemAnimator(new DefaultItemAnimator());
         rcView.setAdapter(rcAdapter);
         rcView.addItemDecoration(new SimpleDividerItemDecoration(this));
+        bundle = new Bundle();
 
         progresso = (ProgressBar) findViewById(R.id.progressoDados);
         progresso.setVisibility(View.VISIBLE);
@@ -115,7 +119,7 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
     @Override
     protected void onRestart() {
         super.onRestart();
-        prepareDevedorData();
+        rcAdapter.notifyDataSetChanged();
     }
 
     public void logoutUser (View view) {
@@ -153,7 +157,15 @@ public class telaPrincipal extends AppCompatActivity implements MyMediatorInterf
 
     @Override
     public void userItemClickData (int posx) {
-        Toast.makeText(telaPrincipal.this, "Quem te pagou : " + devedorList.get(posx).getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), telaDadosDevedor.class);
+        bundle.putString("Nome", devedorList.get(posx).getName());
+        bundle.putString("Valor", devedorList.get(posx).getValue());
+        bundle.putString("Data", devedorList.get(posx).getDate());
+        bundle.putString("Descricao", devedorList.get(posx).getDesc());
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+
     }
 
     public void edit(View view) {

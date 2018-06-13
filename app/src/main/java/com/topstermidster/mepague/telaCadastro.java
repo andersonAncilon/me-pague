@@ -29,6 +29,7 @@ public class telaCadastro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_cadastro);
+        setTitle(R.string.signup);
         login = (EditText) findViewById(R.id.edtTextLoginCreate);
         password = (EditText) findViewById(R.id.edtTextPasswordCreate);
         confirmPassword = (EditText) findViewById(R.id.edtTextPasswordConfirm);

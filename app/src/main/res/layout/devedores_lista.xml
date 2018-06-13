@@ -55,4 +55,11 @@
 
         android:src="@drawable/ic_remove_devedor"
       />
+
+    <TextView
+        android:id="@+id/descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nomeDevedor"
+        android:layout_below="@+id/data" />
 </RelativeLayout>

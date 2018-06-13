@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Me pague</string>
     <string name="auth_failed">Não deu certo</string>
+    <string name="edit">Editar devedor</string>
+    <string name="insert">Inserir devedor</string>
+    <string name="signup">Cadastro</string>
+    <string name="main">Página principal</string>
 </resources>

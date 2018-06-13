@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -22,13 +24,14 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
     WeakReference<Context> mContextWeakReference;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, date, value;
+        public TextView name, date, value, descricao;
 
         public MyViewHolder(View view, final Context context) {
             super(view);
             name = (TextView) view.findViewById(R.id.nomeDevedor);
             value = (TextView) view.findViewById(R.id.valor);
             date = (TextView) view.findViewById(R.id.data);
+            descricao = (TextView) view.findViewById(R.id.descricao);
             //ll = (LinearLayout) itemView.findViewById(R.id.ll_layout);
             btnDelete = (ImageButton) itemView.findViewById(R.id.btnExcluirDevedor);
             btnEdit = (ImageButton) itemView.findViewById(R.id.edit);
@@ -78,6 +81,7 @@ public class devedorAdapter extends RecyclerView.Adapter<devedorAdapter.MyViewHo
         holder.name.setText(devedor.getName());
         holder.value.setText(devedor.getValue());
         holder.date.setText(devedor.getDate());
+        holder.descricao.setText(devedor.getDesc());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.topstermidster.mepague;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class telaAdicionarDevedor extends AppCompatActivity implements View.OnCl
     private EditText edtName;
     private EditText edtValue;
     private TextView edtDate;
+    private EditText edtDesc;
     private FirebaseAuth mAuth;
     FirebaseFirestore db;
     FirebaseUser currentUser;
@@ -41,11 +43,11 @@ public class telaAdicionarDevedor extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_adicionar_devedor);
-
+        setTitle(R.string.insert);
         edtName = (EditText) findViewById(R.id.edtName);
         edtValue = (EditText) findViewById(R.id.edtValue);
         edtDate = (TextView) findViewById(R.id.edtDate);
-
+        edtDesc = (EditText) findViewById(R.id.edtDesc);
 
         edtValue.addTextChangedListener(new Mask(edtValue));
 
@@ -53,6 +55,7 @@ public class telaAdicionarDevedor extends AppCompatActivity implements View.OnCl
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         edtDate.setOnClickListener(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -96,6 +99,7 @@ public class telaAdicionarDevedor extends AppCompatActivity implements View.OnCl
         dev.setName(edtName.getText().toString());
         dev.setValue(edtValue.getText().toString());
         dev.setDate(edtDate.getText().toString());
+        dev.setDesc(edtDesc.getText().toString());
 
         db.collection(currentUser.getEmail()).document(dev.getName())
                 .set(dev)

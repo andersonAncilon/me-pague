@@ -1,15 +1,17 @@
 package com.topstermidster.mepague;
 
 public class devedor {
-    private String name, value, date;
+    private String name, value, date, desc;
 
     public devedor() {
     }
 
-    public devedor(String name, String value, String date) {
+    public devedor(String name, String value, String date, String desc) {
         this.name = name;
         this.value = value;
         this.date = date;
+        this.desc = desc;
+
     }
 
     public String getName() {
@@ -35,4 +37,8 @@ public class devedor {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public String getDesc() { return desc; }
+
+    public void setDesc(String desc) { this.desc = desc; }
 }
