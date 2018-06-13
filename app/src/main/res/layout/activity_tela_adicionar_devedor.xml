@@ -66,6 +66,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
+        android:textColor="#ffff"
         android:text="Adicionar"
         android:onClick="inserir"
         app:layout_constraintBottom_toBottomOf="parent"
